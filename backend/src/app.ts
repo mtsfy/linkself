@@ -1,19 +1,17 @@
 import express, { Request, Response, Express } from "express";
 import dotenv from "dotenv";
-
+import connectDB from "./config";
 dotenv.config();
 
 const app: Express = express();
-const port = process.env.PORT;
+const port = process.env.PORT || 3000;
 
 app.get("/", (req: Request, res: Response) => {
-  res.send("hello world.");
+  res.send("Hello world!");
 });
 
-app.get("/api/", (req: Request, res: Response) => {
-  res.send("api endpoint");
-});
+connectDB();
 
 app.listen(port, () => {
-  console.log("Running Server on port " + port);
+  console.log("Running Server on port: " + port);
 });
