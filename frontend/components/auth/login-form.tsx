@@ -130,7 +130,7 @@ const LoginForm = () => {
         </form>
       </Form>
       <div className="flex gap-2 mt-auto mb-auto text-base">
-        <h1 className="text-neutral-600">Don't have an account?</h1>
+        <h1 className="text-neutral-600">Don&apos;t have an account?</h1>
         <Link
           href={"/register"}
           className="text-sky-500 underline underline-offset-4"
