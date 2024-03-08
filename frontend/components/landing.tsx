@@ -75,9 +75,9 @@ const Landing = () => {
             Analyze your audience and keep your followers engaged
           </h1>
           <p className="lg:text-2xl text-xl font-medium">
-            Track your engagement over time, monitor revenue and learn what's
-            converting your audience. Make informed updates on the fly to keep
-            them coming back.
+            Track your engagement over time, monitor revenue and learn
+            what&apos;s converting your audience. Make informed updates on the
+            fly to keep them coming back.
           </p>
           <div>
             <Button className="bg-purple-200 p-6 rounded-full hover:opacity-95 hover:bg-purple-200 transition text-md text-black">
