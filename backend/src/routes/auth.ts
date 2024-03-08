@@ -1,12 +1,12 @@
 import express, { Request, Response } from "express";
 import bcrypt from "bcrypt";
-// import { validateRequest } from "zod-express-middleware";
-// import { z } from "zod";
 import { User } from "../models/user";
 
 const router = express.Router();
 
 router.post("/register", async (req: Request, res: Response) => {
+  console.log("/auth/register: ", req.headers.host);
+
   try {
     const user = req.body;
     const { name, username, email, password } = user;
@@ -56,6 +56,8 @@ router.post("/register", async (req: Request, res: Response) => {
 });
 
 router.post("/login", async (req: Request, res: Response) => {
+  console.log("/auth/login: ", req.headers.host);
+
   const user = req.body;
   const { email, password } = user;
   try {
@@ -71,7 +73,7 @@ router.post("/login", async (req: Request, res: Response) => {
 
     if (!userExists) {
       res.status(404).json({
-        message: "Invalid credentials.",
+        message: "Invalid username and/or password.",
       });
       return;
     }
@@ -83,7 +85,7 @@ router.post("/login", async (req: Request, res: Response) => {
 
     if (!isCorrectPassword) {
       res.status(404).json({
-        message: "Invalid credentials.",
+        message: "Invalid username and/or password.",
       });
       return;
     }
