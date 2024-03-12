@@ -1,126 +1,16 @@
-import express, { Request, Response } from "express";
-import bcrypt from "bcrypt";
-import jwt from "jsonwebtoken";
-import { User } from "../models/user";
+import express from "express";
+
+import { currentUser, login, logout, register } from "../controllers/users";
+import { requireAuth } from "../middleware/auth";
 
 const router = express.Router();
 
-router.post("/register", async (req: Request, res: Response) => {
-  console.log("/auth/register: ", req.headers.host);
+router.get("/", requireAuth, currentUser);
 
-  try {
-    const user = req.body;
-    const { name, username, email, password } = user;
+router.post("/register", register);
 
-    if (!name || !username || !password || !email) {
-      res.status(400).json({
-        message: "Parameters are missing.",
-      });
-    }
+router.post("/login", login);
 
-    const emailExists = await User.findOne({ email: email }).select("+email");
-
-    if (emailExists) {
-      res.status(400).json({
-        message: "Email is already in use.",
-      });
-      return;
-    }
-
-    const usernameExists = await User.findOne({ username: username });
-
-    if (usernameExists) {
-      res.status(400).json({
-        message: "Username is taken.",
-      });
-      return;
-    }
-    const hashedPassword = await bcrypt.hash(password, 10);
-
-    const newUser = await User.create({
-      name: name,
-      username: username,
-      email: email,
-      password: hashedPassword,
-    });
-
-    res.status(201).json({
-      message: "User created successfully.",
-      user: newUser,
-    });
-  } catch (error) {
-    console.log(error);
-    res.status(400).json({
-      error: error,
-    });
-  }
-});
-
-router.post("/login", async (req: Request, res: Response) => {
-  console.log("/auth/login: ", req.headers.host);
-
-  const user = req.body;
-  const { email, password } = user;
-  try {
-    if (!email || !password) {
-      res.status(400).json({
-        message: "Email and Password is required.",
-      });
-    }
-
-    const userExists = await User.findOne({ email: email }).select(
-      "+password +email"
-    );
-
-    if (!userExists) {
-      res.status(404).json({
-        message: "Invalid username and/or password.",
-      });
-      return;
-    }
-
-    const isCorrectPassword = await bcrypt.compare(
-      password,
-      userExists.password
-    );
-
-    if (!isCorrectPassword) {
-      res.status(404).json({
-        message: "Invalid username and/or password.",
-      });
-      return;
-    }
-
-    const token = jwt.sign({ id: userExists._id }, process.env.JWT_SECRET_KEY!);
-    const expiryDate = new Date(Date.now() + 3600000); // 1hr
-    userExists.password = "";
-    res
-      .cookie("access_token", token, { httpOnly: true, expires: expiryDate })
-      .status(200)
-      .json({
-        message: "User logged in successfully.",
-        user: userExists,
-      });
-  } catch (error) {
-    console.log(error);
-    res.json(400).json({
-      error: error,
-    });
-  }
-});
-
-router.post("/logout", (req: Request, res: Response) => {
-  try {
-    res
-      .clearCookie("access_token")
-      .status(200)
-      .json("User logged out successfully.");
-  } catch (error) {
-    console.log(error);
-    res.status(404).json({
-      error: error,
-    });
-  }
-});
+router.post("/logout", logout);
 
 export default router;
