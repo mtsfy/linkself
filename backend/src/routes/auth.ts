@@ -1,5 +1,6 @@
 import express, { Request, Response } from "express";
 import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
 import { User } from "../models/user";
 
 const router = express.Router();
@@ -90,14 +91,33 @@ router.post("/login", async (req: Request, res: Response) => {
       return;
     }
 
+    const token = jwt.sign({ id: userExists._id }, process.env.JWT_SECRET_KEY!);
+    const expiryDate = new Date(Date.now() + 3600000); // 1hr
     userExists.password = "";
-    res.status(200).json({
-      message: "User logged in successfully.",
-      user: userExists,
-    });
+    res
+      .cookie("access_token", token, { httpOnly: true, expires: expiryDate })
+      .status(200)
+      .json({
+        message: "User logged in successfully.",
+        user: userExists,
+      });
   } catch (error) {
     console.log(error);
     res.json(400).json({
+      error: error,
+    });
+  }
+});
+
+router.post("/logout", (req: Request, res: Response) => {
+  try {
+    res
+      .clearCookie("access_token")
+      .status(200)
+      .json("User logged out successfully.");
+  } catch (error) {
+    console.log(error);
+    res.status(404).json({
       error: error,
     });
   }
