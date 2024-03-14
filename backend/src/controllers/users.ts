@@ -58,29 +58,25 @@ export const login = async (req: Request, res: Response) => {
   console.log("/auth/login: ", req.headers.host);
 
   try {
-    const user = req.body;
-    const { email, password } = user;
+    const { email, password } = req.body;
     if (!email || !password) {
       res.status(400).json({
         message: "Email and Password is required.",
       });
     }
 
-    const userExists = await User.findOne({ email: email }).select(
+    const user = await User.findOne({ email: email }).select(
       "+password +email"
     );
 
-    if (!userExists) {
+    if (!user) {
       res.status(404).json({
         message: "Invalid username and/or password.",
       });
       return;
     }
 
-    const isCorrectPassword = await bcrypt.compare(
-      password,
-      userExists.password
-    );
+    const isCorrectPassword = await bcrypt.compare(password, user.password);
 
     if (!isCorrectPassword) {
       res.status(404).json({
@@ -88,20 +84,20 @@ export const login = async (req: Request, res: Response) => {
       });
       return;
     }
-
-    const token = jwt.sign({ id: userExists._id }, process.env.JWT_SECRET_KEY!);
-    const expiryDate = new Date(Date.now() + 3600000); // 1hr
-    userExists.password = "";
+    user.password = "";
+    const token = jwt.sign({ user }, process.env.JWT_SECRET_KEY!, {
+      expiresIn: "1hr",
+    });
+    // const expiryDate = new Date(Date.now() + 3600000); // 1hr
     res
       .cookie("access_token", token, {
         httpOnly: true,
-        expires: expiryDate,
         sameSite: "strict",
       })
       .status(200)
       .json({
         message: "User logged in successfully.",
-        user: userExists,
+        user: user,
       });
   } catch (error) {
     console.log(error);
@@ -130,10 +126,10 @@ export const logout = (req: Request, res: Response) => {
 export const currentUser = async (req: Request, res: Response) => {
   console.log("/: ", req.headers.host);
   try {
-    const reqUser = req.body;
-    const user = await User.findOne(reqUser._id).select("+email");
+    const { _id } = req.body;
+    const user = await User.findOne(_id).select("+email");
     res.status(200).json({
-      user: user,
+      user,
     });
   } catch (error) {
     console.log(error);

@@ -19,6 +19,8 @@ import { Button } from "../ui/button";
 import Link from "next/link";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
+import { setCookie } from "cookies-next";
+import { cookies, headers } from "next/headers";
 
 export const LoginSchema = z.object({
   email: z.string().email({
@@ -28,7 +30,10 @@ export const LoginSchema = z.object({
     message: "Passowrd is required",
   }),
 });
-
+// export const axiosInstance = axios.create({
+//   baseURL: process.env.NEXT_PUBLIC_BACKEND_URL,
+//   withCredentials: true,
+// });
 const LoginForm = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [formError, setFormError] = useState("");
@@ -51,18 +56,22 @@ const LoginForm = () => {
           email: data.email,
           password: data.password,
         },
+        withCredentials: true,
       });
 
       if (response.status === 200) {
-        setFormError("");
         toast.success("Successfully logged in.");
+        console.log(response.headers);
+
         router.push("/");
         setIsLoading(false);
         return;
       }
     } catch (error: any) {
       toast.error("Something went wrong.");
-      setFormError(error.response.data.message);
+      console.log(error);
+
+      setFormError("Error");
       setIsLoading(false);
     }
   };

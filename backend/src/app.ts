@@ -3,6 +3,7 @@ import cors from "cors";
 import dotenv from "dotenv";
 import connectDB from "./config";
 import authRoutes from "./routes/auth";
+import linkRoutes from "./routes/link";
 import cookieParser from "cookie-parser";
 dotenv.config();
 
@@ -11,11 +12,12 @@ connectDB();
 
 const app: Express = express();
 
-app.use(cors());
+app.use(cors({ credentials: true, origin: "http://localhost:3000" }));
 app.use(json());
 app.use(cookieParser());
 
 app.use("/api/auth", authRoutes);
+app.use("/api/link", linkRoutes);
 app.get("/", (req: Request, res: Response) => {
   res.send("Hello world!");
 });
