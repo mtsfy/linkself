@@ -1,11 +1,13 @@
-"use client";
-
 import Link from "next/link";
 import { TfiUnlink } from "react-icons/tfi";
 
-const Logo = () => {
+interface LogoProps {
+  currentUser: User | null;
+}
+
+const Logo: React.FC<LogoProps> = ({ currentUser }) => {
   return (
-    <Link href={"/"}>
+    <Link href={currentUser ? "/admin" : "/"}>
       <div className="flex gap-2 items-center lg:ml-8 ml-4 lg:mr-12">
         <h1 className="font-semibold text-2xl lg:text-3xl hidden lg:block">
           LinkSelf

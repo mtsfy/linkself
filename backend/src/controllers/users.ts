@@ -2,6 +2,7 @@ import express, { Request, Response } from "express";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { User } from "../models/user";
+import assert from "assert";
 
 export const register = async (req: Request, res: Response) => {
   console.log("/auth/register: ", req.headers.host);
@@ -42,9 +43,16 @@ export const register = async (req: Request, res: Response) => {
       password: hashedPassword,
     });
 
+    newUser.password = "";
+
     res.status(201).json({
       message: "User created successfully.",
-      user: newUser,
+      user: {
+        id: newUser.id,
+        name: newUser.name,
+        email: newUser.email,
+        username: newUser.username,
+      },
     });
   } catch (error) {
     console.log(error);
@@ -97,7 +105,13 @@ export const login = async (req: Request, res: Response) => {
       .status(200)
       .json({
         message: "User logged in successfully.",
-        user: user,
+        user: {
+          id: user.id,
+          name: user.name,
+          username: user.username,
+          email: user.email,
+          links: user.links,
+        },
       });
   } catch (error) {
     console.log(error);
@@ -117,24 +131,28 @@ export const logout = (req: Request, res: Response) => {
       .json("User logged out successfully.");
   } catch (error) {
     console.log(error);
-    res.status(404).json({
-      error: error,
+    res.status(500).json({
+      error: "An unexpected error occurred.",
     });
   }
 };
 
 export const currentUser = async (req: Request, res: Response) => {
   console.log("/: ", req.headers.host);
+  console.log("ACCESS_TOKEN: ", req.cookies.access_token, "\n");
+
   try {
-    const { _id } = req.body;
-    const user = await User.findOne(_id).select("+email");
+    //@ts-ignore
+    const { _id } = req.user;
+
+    const user = await User.findOne({ _id }).select("+email");
     res.status(200).json({
-      user,
+      user: user,
     });
   } catch (error) {
     console.log(error);
-    res.status(404).json({
-      error: error,
+    res.status(500).json({
+      error: "Error retrieving user.",
     });
   }
 };

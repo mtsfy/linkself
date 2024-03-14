@@ -62,8 +62,8 @@ const LoginForm = () => {
       if (response.status === 200) {
         toast.success("Successfully logged in.");
         console.log(response.headers);
-
-        router.push("/");
+        router.push("/admin");
+        router.refresh();
         setIsLoading(false);
         return;
       }

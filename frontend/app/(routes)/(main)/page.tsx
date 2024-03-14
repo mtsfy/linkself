@@ -1,7 +1,5 @@
-import { getCurrentUser } from "@/actions/getCurrentUser";
 import Footer from "@/components/footer";
 import Landing from "@/components/landing";
-import { redirect } from "next/navigation";
 
 export default async function Home() {
   return (

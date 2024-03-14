@@ -2,9 +2,18 @@
 
 import Link from "next/link";
 import { Button } from "../ui/button";
+import { IoSettingsOutline } from "react-icons/io5";
+import { LuGalleryVertical } from "react-icons/lu";
+import { LuShapes } from "react-icons/lu";
+import { BsBarChart } from "react-icons/bs";
+import MenuBox from "./menu-box";
 
-const MainNav = () => {
-  const data = [
+interface MainNavProps {
+  currentUser: User | null;
+}
+
+const MainNav: React.FC<MainNavProps> = ({ currentUser }) => {
+  const defaultOptions = [
     {
       title: "Template",
       href: "/template",
@@ -22,17 +31,40 @@ const MainNav = () => {
       href: "/pricing",
     },
   ];
+
+  const mainOptions = [
+    {
+      title: "Links",
+      href: "/admin",
+      icon: LuGalleryVertical,
+    },
+    {
+      title: "Appearance",
+      href: "/admin/appearance",
+      icon: LuShapes,
+    },
+    {
+      title: "Analytics",
+      href: "/admin/analytics",
+      icon: BsBarChart,
+    },
+    {
+      title: "Settings",
+      href: "/admin/settings",
+      icon: IoSettingsOutline,
+    },
+  ];
+  const menu = currentUser ? mainOptions : defaultOptions;
+
   return (
-    <div className="lg:flex gap-2 hidden w-full">
-      {data.map((link, index) => (
-        <Button
+    <div className="lg:flex hidden w-full justify-evenly">
+      {menu.map((item: any, index) => (
+        <MenuBox
           key={index}
-          asChild
-          variant={"ghost"}
-          className="text-base text-neutral-600"
-        >
-          <Link href={link.href}>{link.title}</Link>
-        </Button>
+          title={item.title}
+          href={item.href}
+          icon={item.icon}
+        />
       ))}
     </div>
   );
