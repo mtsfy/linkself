@@ -16,7 +16,7 @@ const CopyLink: React.FC<CopyLinkProps> = ({ currentUser }) => {
     toast.success("Link copied to clipboard.");
   };
   return (
-    <div className="bg-gray-100 p-6 rounded-2xl  text-base flex justify-between lg:flex-row flex-col gap-4">
+    <div className="bg-blue-100 p-6 rounded-2xl  text-base flex justify-between lg:flex-row flex-col gap-4">
       <div className="flex items-center space-x-2 lg:flex-row flex-col">
         <PiWarningCircleThin size={20} />
         <span className="font-medium">Your LinkSelf is live:</span>
