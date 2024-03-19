@@ -26,10 +26,12 @@ const LinkControl: React.FC<LinkControlProps> = ({ currentUser }) => {
           onClick={() => setIsInputBoxOpen(true)}
           isOpen={isInputBoxOpen}
         />
-        <InputBox
-          onClick={() => setIsInputBoxOpen(false)}
-          isOpen={isInputBoxOpen}
-        />
+        {isInputBoxOpen && (
+          <InputBox
+            onClick={() => setIsInputBoxOpen(false)}
+            isOpen={isInputBoxOpen}
+          />
+        )}
         <LinkList data={links} />
       </div>
     </div>

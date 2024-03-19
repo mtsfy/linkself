@@ -26,9 +26,9 @@ interface InputBoxProps {
 }
 
 const InputBox: React.FC<InputBoxProps> = ({ onClick, isOpen }) => {
-  if (!isOpen) {
-    return null;
-  }
+  // if (!isOpen) {
+  //   return null;
+  // }
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
 
