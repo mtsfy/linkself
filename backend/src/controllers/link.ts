@@ -1,11 +1,7 @@
 import express, { NextFunction, Request, Response } from "express";
 import { Link } from "../models/link";
 import { User } from "../models/user";
-export const createNewLink = async (
-  req: Request | any,
-  res: Response,
-  next: NextFunction
-) => {
+export const createNewLink = async (req: Request | any, res: Response) => {
   try {
     const currentUser = req.user;
 
@@ -23,7 +19,13 @@ export const createNewLink = async (
       isActive: true,
     });
 
-    if (newLink) {
+    const updatedUser = await User.findByIdAndUpdate(
+      currentUser._id,
+      { $push: { links: newLink } },
+      { new: true } // Returns the updated document
+    );
+
+    if (newLink && updatedUser) {
       res.status(201).json({
         message: "Link created successfully.",
         link: newLink,
@@ -48,6 +50,7 @@ export const getLinkDetail = async (req: Request, res: Response) => {
     }
 
     const link = await Link.findOne({ _id: linkId });
+    // const user = await User.findOne({ "links._id": linkId }).select("-links");
 
     if (!link) {
       res.status(404).json({
@@ -63,5 +66,17 @@ export const getLinkDetail = async (req: Request, res: Response) => {
     res.status(404).json({
       error: error,
     });
+  }
+};
+
+export const getAllLinks = async (req: Request, res: Response) => {
+  try {
+    const links = await Link.find({});
+
+    res.status(200).json({
+      links: links,
+    });
+  } catch (error) {
+    console.log(error);
   }
 };

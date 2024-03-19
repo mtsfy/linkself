@@ -93,14 +93,13 @@ export const login = async (req: Request, res: Response) => {
       return;
     }
     user.password = "";
-    const token = jwt.sign({ user }, process.env.JWT_SECRET_KEY!, {
-      expiresIn: "1hr",
-    });
-    // const expiryDate = new Date(Date.now() + 3600000); // 1hr
+    const token = jwt.sign({ user }, process.env.JWT_SECRET_KEY!);
+    const expiryDate = new Date(Date.now() + 3600000); // 1hr
     res
       .cookie("access_token", token, {
         httpOnly: true,
         sameSite: "strict",
+        expires: expiryDate,
       })
       .status(200)
       .json({
