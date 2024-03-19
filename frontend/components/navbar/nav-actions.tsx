@@ -4,7 +4,7 @@ import { logout } from "@/lib";
 import Avatar from "../avatar";
 
 interface NavActionsProps {
-  currentUser: User | null;
+  currentUser: CurrentUser | null;
 }
 
 const NavActions: React.FC<NavActionsProps> = ({ currentUser }) => {

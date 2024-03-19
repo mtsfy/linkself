@@ -6,11 +6,12 @@ import { Button } from "./ui/button";
 import toast from "react-hot-toast";
 
 interface CopyLinkProps {
-  currentUser: User;
+  currentUser: CurrentUser;
 }
 
 const CopyLink: React.FC<CopyLinkProps> = ({ currentUser }) => {
-  const link = process.env.NEXT_PUBLIC_FRONT_URL + "/" + currentUser.username;
+  const link =
+    process.env.NEXT_PUBLIC_FRONT_URL + "/" + currentUser.user.username;
   const onCopy = () => {
     navigator.clipboard.writeText(link);
     toast.success("Link copied to clipboard.");
@@ -21,7 +22,7 @@ const CopyLink: React.FC<CopyLinkProps> = ({ currentUser }) => {
         <PiWarningCircleThin size={20} />
         <span className="font-medium">Your LinkSelf is live:</span>
         <Link
-          href={`/${currentUser.username}`}
+          href={`/${currentUser.user.username}`}
           className="underline underline-offset-4"
         >
           {link}

@@ -1,25 +1,28 @@
-import mongoose, { Model, Schema, model } from "mongoose";
+import { InferSchemaType, Schema, model } from "mongoose";
 
-export interface LinkInterface {
-  url: string;
-  title: string;
-  isActive: boolean;
-}
+export const linkSchema = new Schema(
+  {
+    userId: {
+      type: Schema.Types.ObjectId,
+      required: true,
+    },
+    url: {
+      type: String,
+      required: true,
+    },
+    title: {
+      type: String,
+      required: true,
+    },
+    isActive: {
+      type: Boolean,
+      required: true,
+      default: true,
+    },
+  },
+  { timestamps: true }
+);
 
-export const linkSchema = new Schema<LinkInterface>({
-  url: {
-    type: String,
-    required: true,
-  },
-  title: {
-    type: String,
-    required: true,
-  },
-  isActive: {
-    type: Boolean,
-    required: true,
-    default: true,
-  },
-});
+type Link = InferSchemaType<typeof linkSchema>;
 
-export const Link = model<LinkInterface>("Link", linkSchema);
+export default model<Link>("Link", linkSchema);

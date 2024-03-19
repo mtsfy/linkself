@@ -1,7 +1,8 @@
-import express, { NextFunction, Request, Response } from "express";
-import { Link } from "../models/link";
-import { User } from "../models/user";
+import { Request, Response } from "express";
+import Link from "../models/link";
 export const createNewLink = async (req: Request | any, res: Response) => {
+  console.log("/link/new", req.headers.host);
+
   try {
     const currentUser = req.user;
 
@@ -17,15 +18,10 @@ export const createNewLink = async (req: Request | any, res: Response) => {
       url: url,
       title: title,
       isActive: true,
+      userId: currentUser._id,
     });
 
-    const updatedUser = await User.findByIdAndUpdate(
-      currentUser._id,
-      { $push: { links: newLink } },
-      { new: true } // Returns the updated document
-    );
-
-    if (newLink && updatedUser) {
+    if (newLink) {
       res.status(201).json({
         message: "Link created successfully.",
         link: newLink,
@@ -50,7 +46,6 @@ export const getLinkDetail = async (req: Request, res: Response) => {
     }
 
     const link = await Link.findOne({ _id: linkId });
-    // const user = await User.findOne({ "links._id": linkId }).select("-links");
 
     if (!link) {
       res.status(404).json({

@@ -1,8 +1,8 @@
-import express, { Request, Response } from "express";
+import { Request, Response } from "express";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import { User } from "../models/user";
-import assert from "assert";
+import User from "../models/user";
+import Link from "../models/link";
 
 export const register = async (req: Request, res: Response) => {
   console.log("/auth/register: ", req.headers.host);
@@ -109,7 +109,6 @@ export const login = async (req: Request, res: Response) => {
           name: user.name,
           username: user.username,
           email: user.email,
-          links: user.links,
         },
       });
   } catch (error) {
@@ -138,16 +137,44 @@ export const logout = (req: Request, res: Response) => {
 
 export const currentUser = async (req: Request, res: Response) => {
   console.log("/: ", req.headers.host);
-  console.log("ACCESS_TOKEN: ", req.cookies.access_token, "\n");
+  // console.log("ACCESS_TOKEN: ", req.cookies.access_token, "\n");
 
   try {
     //@ts-ignore
     const { _id } = req.user;
 
     const user = await User.findOne({ _id }).select("+email");
+
+    if (!user) {
+      res.status(404).json({
+        error: "User not found.",
+      });
+    }
+
+    const links = await Link.find({ userId: _id }).sort({ createdAt: -1 });
     res.status(200).json({
       user: user,
+      links: links,
     });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      error: "Error retrieving user.",
+    });
+  }
+};
+
+export const getUserById = async (req: Request, res: Response) => {
+  console.log("/userId : ", req.headers.host);
+  try {
+    const { userId } = req.params;
+    const user = await User.findOne({ _id: userId });
+
+    if (user) {
+      res.status(200).json({
+        user,
+      });
+    }
   } catch (error) {
     console.log(error);
     res.status(500).json({

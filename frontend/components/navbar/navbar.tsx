@@ -3,7 +3,7 @@ import MainNav from "./main-nav";
 import NavActions from "./nav-actions";
 
 interface NavbarProps {
-  currentUser: User | null;
+  currentUser: CurrentUser | null;
 }
 
 const Navbar: React.FC<NavbarProps> = ({ currentUser }) => {

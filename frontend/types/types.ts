@@ -1,10 +1,25 @@
 type User = {
   _id: number;
-  _v: number;
   email: string;
   name: string;
   username: string;
-  links: any[];
   updatedAt: string;
   createdAt: string;
+  _v: number;
+};
+
+type Link = {
+  _id: string;
+  userId: string;
+  url: string;
+  title: string;
+  isActive: boolean;
+  updatedAt: string;
+  createdAt: string;
+  _v: number;
+};
+
+type CurrentUser = {
+  user: User;
+  links: Link[];
 };

@@ -1,15 +1,6 @@
-import mongoose, { Schema, model } from "mongoose";
-import { LinkInterface, linkSchema } from "./link";
+import { InferSchemaType, Schema, model } from "mongoose";
 
-interface UserInterface {
-  name: string;
-  email: string;
-  username: string;
-  password: string;
-  links: LinkInterface[];
-}
-
-const userSchema = new Schema<UserInterface>(
+const userSchema = new Schema(
   {
     name: {
       type: String,
@@ -32,11 +23,9 @@ const userSchema = new Schema<UserInterface>(
       minlength: 8,
       select: false,
     },
-    links: {
-      type: [linkSchema],
-    },
   },
   { timestamps: true }
 );
 
-export const User = model<UserInterface>("User", userSchema);
+type User = InferSchemaType<typeof userSchema>;
+export default model<User>("User", userSchema);

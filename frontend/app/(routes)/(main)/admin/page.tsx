@@ -16,7 +16,7 @@ const AdminPage = async () => {
         <CopyLink currentUser={currentUser} />
         <div className="my-4 bg-gray-200 w-full h-[1px]" />
         <div className="rounded-xl p-4 w-full flex-grow">
-          <LinkControl />
+          <LinkControl currentUser={currentUser} />
         </div>
       </div>
       <div className="hidden lg:flex mx-4 lg:w-1/3 h-[82vh] fixed right-1">

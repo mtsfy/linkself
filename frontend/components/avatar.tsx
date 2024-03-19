@@ -1,5 +1,5 @@
 interface AvatarProps {
-  currentUser: User | null;
+  currentUser: CurrentUser | null;
 }
 
 const Avatar: React.FC<AvatarProps> = ({ currentUser }) => {
@@ -8,7 +8,10 @@ const Avatar: React.FC<AvatarProps> = ({ currentUser }) => {
   }
   return (
     <div className="p-4 rounded-full bg-gray-500 h-14 w-14 flex items-center justify-center">
-      <h1 className="font-bold text-lg text-white"> {currentUser.name[0]}</h1>
+      <h1 className="font-bold text-lg text-white">
+        {" "}
+        {currentUser.user.name[0]}
+      </h1>
     </div>
   );
 };

@@ -2,7 +2,7 @@ import Link from "next/link";
 import { TfiUnlink } from "react-icons/tfi";
 
 interface LogoProps {
-  currentUser?: User | null;
+  currentUser?: CurrentUser | null;
 }
 
 const Logo: React.FC<LogoProps> = ({ currentUser }) => {
