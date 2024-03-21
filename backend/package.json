@@ -2,16 +2,18 @@
   "name": "backend",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "index.ts",
   "scripts": {
-    "start": "nodemon index.ts",
+    "start": "nodemon src/index.ts",
     "build": "rimraf dist && tsc",
-    "ts.check": "tsc --project tsconfig.json",
+    "ts.check" : "tsc --project tsconfig.json",
+    "add-build" : "git add dist",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "pre-commit": [
     "ts.check",
-    "build"
+    "build",
+    "add-build"
   ],
   "keywords": [],
   "author": "",
