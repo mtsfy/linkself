@@ -22,9 +22,13 @@ export const createNewLink = async (req: Request | any, res: Response) => {
     });
 
     if (newLink) {
+      const allLinks = await Link.find({ userId: currentUser._id }).sort({
+        createdAt: -1,
+      });
       res.status(201).json({
         message: "Link created successfully.",
         link: newLink,
+        allLinks: allLinks,
       });
     }
   } catch (error) {

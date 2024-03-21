@@ -164,17 +164,24 @@ export const currentUser = async (req: Request, res: Response) => {
   }
 };
 
-export const getUserById = async (req: Request, res: Response) => {
-  console.log("/userId : ", req.headers.host);
+export const getUserByUsername = async (req: Request, res: Response) => {
+  console.log("/username : ", req.headers.host);
   try {
-    const { userId } = req.params;
-    const user = await User.findOne({ _id: userId });
+    const { username } = req.params;
+    const user = await User.findOne({ username: username });
 
-    if (user) {
-      res.status(200).json({
-        user,
+    if (!user) {
+      return res.status(404).json({
+        error: "User not found.",
       });
     }
+    const links = await Link.find({ userId: user._id }).sort({
+      createdAt: -1,
+    });
+    res.status(200).json({
+      user,
+      links: links,
+    });
   } catch (error) {
     console.log(error);
     res.status(500).json({

@@ -2,7 +2,7 @@ import express from "express";
 
 import {
   currentUser,
-  getUserById,
+  getUserByUsername,
   login,
   logout,
   register,
@@ -13,7 +13,7 @@ const router = express.Router();
 
 router.get("/", requireAuth, currentUser);
 
-router.get("/userId", getUserById);
+router.get("/:username", getUserByUsername);
 
 router.post("/register", register);
 
