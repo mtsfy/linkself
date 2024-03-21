@@ -1,16 +1,25 @@
+import { twMerge } from "tailwind-merge";
+
 interface AvatarProps {
-  currentUser: CurrentUser | null;
+  user: User | null;
+  className?: string;
+  textSize?: string;
 }
 
-const Avatar: React.FC<AvatarProps> = ({ currentUser }) => {
-  if (!currentUser) {
+const Avatar: React.FC<AvatarProps> = ({ user, className, textSize }) => {
+  if (!user) {
     return null;
   }
   return (
-    <div className="p-4 rounded-full bg-gray-500 h-14 w-14 flex items-center justify-center">
-      <h1 className="font-bold text-lg text-white">
+    <div
+      className={twMerge(
+        "p-4 rounded-full bg-gray-500 flex items-center justify-center h-14 w-14",
+        className
+      )}
+    >
+      <h1 className={twMerge("font-bold text-lg text-white", textSize)}>
         {" "}
-        {currentUser.user.name[0]}
+        {user.user.name[0]}
       </h1>
     </div>
   );

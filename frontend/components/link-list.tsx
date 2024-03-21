@@ -1,17 +1,22 @@
-"use client";
-
-import React from "react";
 import LinkCard from "./link-card";
 
 interface LinkListProps {
-  data: any[];
+  links: linkType[];
+  currentUser?: User | null;
 }
 
-const LinkList: React.FC<LinkListProps> = ({ data }) => {
+const LinkList: React.FC<LinkListProps> = ({ links, currentUser }) => {
+  const isEditable = currentUser ? true : false;
+
   return (
-    <div className="flex flex-col gap-6">
-      {data.map((item, index) => (
-        <LinkCard key={index} title={item.title} url={item.url} />
+    <div className="flex flex-col gap-4">
+      {links.map((link: linkType) => (
+        <LinkCard
+          key={link._id}
+          title={link.title}
+          url={link.url}
+          isEditable={isEditable}
+        />
       ))}
     </div>
   );

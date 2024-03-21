@@ -1,4 +1,4 @@
-type User = {
+type userType = {
   _id: number;
   email: string;
   name: string;
@@ -8,7 +8,7 @@ type User = {
   _v: number;
 };
 
-type Link = {
+type linkType = {
   _id: string;
   userId: string;
   url: string;
@@ -19,7 +19,7 @@ type Link = {
   _v: number;
 };
 
-type CurrentUser = {
-  user: User;
-  links: Link[];
+type User = {
+  user: userType;
+  links: linkType[];
 };

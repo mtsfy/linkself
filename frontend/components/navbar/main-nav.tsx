@@ -9,7 +9,7 @@ import { BsBarChart } from "react-icons/bs";
 import MenuBox from "./menu-box";
 
 interface MainNavProps {
-  currentUser: CurrentUser | null;
+  currentUser: User | null;
 }
 
 const MainNav: React.FC<MainNavProps> = ({ currentUser }) => {

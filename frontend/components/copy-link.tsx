@@ -6,7 +6,7 @@ import { Button } from "./ui/button";
 import toast from "react-hot-toast";
 
 interface CopyLinkProps {
-  currentUser: CurrentUser;
+  currentUser: User;
 }
 
 const CopyLink: React.FC<CopyLinkProps> = ({ currentUser }) => {

@@ -6,18 +6,12 @@ import InputBox from "./input-box";
 import LinkList from "./link-list";
 
 interface LinkControlProps {
-  currentUser: CurrentUser;
+  currentUser: User;
 }
 
 const LinkControl: React.FC<LinkControlProps> = ({ currentUser }) => {
   const [isInputBoxOpen, setIsInputBoxOpen] = useState(false);
-  const links = currentUser.links;
-  // const links = [
-  //   {
-  //     title: "TikTok",
-  //     url: "https://www.tiktok.com",
-  //   },
-  // ];
+  const { links } = currentUser;
 
   return (
     <div className="flex flex-col justify-items-center gap-4">
@@ -32,7 +26,7 @@ const LinkControl: React.FC<LinkControlProps> = ({ currentUser }) => {
             isOpen={isInputBoxOpen}
           />
         )}
-        <LinkList data={links} />
+        <LinkList links={links} currentUser={currentUser} />
       </div>
     </div>
   );

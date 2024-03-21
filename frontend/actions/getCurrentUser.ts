@@ -17,7 +17,7 @@ export async function getCurrentUser() {
       },
     });
 
-    const currentUser: CurrentUser = response.data;
+    const currentUser: User = response.data;
     return currentUser;
   } catch (error) {
     console.log(error);

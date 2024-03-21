@@ -4,7 +4,7 @@ import { logout } from "@/lib";
 import Avatar from "../avatar";
 
 interface NavActionsProps {
-  currentUser: CurrentUser | null;
+  currentUser: User | null;
 }
 
 const NavActions: React.FC<NavActionsProps> = ({ currentUser }) => {
@@ -34,7 +34,7 @@ const NavActions: React.FC<NavActionsProps> = ({ currentUser }) => {
           Log out
         </Button>
       </form>
-      <Avatar currentUser={currentUser} />
+      <Avatar user={currentUser} />
     </>
   );
   const actions = currentUser ? mainActions : defaultActions;
