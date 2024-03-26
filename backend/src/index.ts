@@ -11,9 +11,21 @@ const port = process.env.PORT || 3000;
 connectDB();
 
 const app: Express = express();
-const origin = process.env.ORIGIN;
+//const origin = process.env.ORIGIN;
+const allowedOrigins = ['http://localhost:3000', 'http://127.0.0.1:3000', 'http://10.0.0.144:3000','https://linkself.vercel.app'];
 
-app.use(cors({ credentials: true, origin: origin }));
+app.use(cors({
+  credentials: true,
+  origin: (origin, callback) => {
+    if (!origin || allowedOrigins.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  }
+}));
+
+//app.use(cors({ credentials: true, origin: "http://localhost:3000" }));
 app.use(json());
 app.use(cookieParser());
 
