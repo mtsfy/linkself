@@ -4,6 +4,8 @@ import jwt from "jsonwebtoken";
 import User from "../models/user";
 import Link from "../models/link";
 
+const domain = process.env.ENV === 'production' ? '.linkself.at' : '.localhost';
+
 export const register = async (req: Request, res: Response) => {
   console.log("/auth/register: ", req.headers.host);
 
@@ -98,7 +100,9 @@ export const login = async (req: Request, res: Response) => {
     res
       .cookie("access_token", token, {
         httpOnly: true,
-        sameSite: "strict",
+        secure: true,
+        sameSite: "none",
+        domain: domain,
         expires: expiryDate,
       })
       .status(200)
