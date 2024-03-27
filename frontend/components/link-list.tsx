@@ -13,6 +13,8 @@ const LinkList: React.FC<LinkListProps> = ({ links, currentUser }) => {
       {links.map((link: linkType) => (
         <LinkCard
           key={link._id}
+          id={link._id}
+          isActive={link.isActive}
           title={link.title}
           url={link.url}
           isEditable={isEditable}

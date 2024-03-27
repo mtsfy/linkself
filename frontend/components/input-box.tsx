@@ -45,13 +45,28 @@ const InputBox: React.FC<InputBoxProps> = ({ onClick, isOpen }) => {
   const onSubmit = async (data: z.infer<typeof InputBoxSchema>) => {
     try {
       setIsLoading(true);
+      let formattedUrl = data.url;
+
+      // Check if the URL starts with "https://", if not, prepend it.
+      if (!formattedUrl.startsWith("https://")) {
+        formattedUrl = `https://${formattedUrl}`;
+      }
+
+      // Extract the domain name
+      const urlObject = new URL(formattedUrl);
+      let domainName = urlObject.hostname;
+
+      // Optional: Remove "www." if present
+      if (domainName.startsWith("www.")) {
+        domainName = domainName.substring(4);
+      }
 
       const response = await axios({
         method: "POST",
         url: process.env.NEXT_PUBLIC_BACKEND_URL + "/link/new",
         data: {
-          url: data.url,
-          title: "No way",
+          url: formattedUrl,
+          title: domainName,
         },
         withCredentials: true,
       });

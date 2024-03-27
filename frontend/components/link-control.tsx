@@ -15,7 +15,7 @@ const LinkControl: React.FC<LinkControlProps> = ({ currentUser }) => {
 
   return (
     <div className="flex flex-col justify-items-center gap-4">
-      <div className="self-center lg:w-1/2 w-full flex flex-col gap-8">
+      <div className="self-center lg:w-2/3 xl:w-1/2 w-full flex flex-col gap-8">
         <AddLinkButton
           onClick={() => setIsInputBoxOpen(true)}
           isOpen={isInputBoxOpen}
