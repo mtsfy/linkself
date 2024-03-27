@@ -1,9 +1,6 @@
 import { getCurrentUser } from "@/actions/getCurrentUser";
-import Avatar from "@/components/avatar";
 import CopyLink from "@/components/copy-link";
 import LinkControl from "@/components/link-control";
-import LinkList from "@/components/link-list";
-import Logo from "@/components/navbar/logo";
 import PhoneScreen from "@/components/phone-screen";
 import { redirect } from "next/navigation";
 

@@ -94,7 +94,7 @@ export const editLinkInfo = async (req: Request | any, res: Response) => {
 
     const { isActive, url, title } = req.body;
 
-    if (!isActive || !url || !title) {
+    if (isActive === null || isActive === undefined || !url || !title) {
       return res.status(400).json({
         message: "Parameters are missing.",
       });
@@ -118,7 +118,11 @@ export const editLinkInfo = async (req: Request | any, res: Response) => {
       message: "Link updated successfully.",
       link: link,
     });
-  } catch (error) {}
+  } catch (error) {
+    res.status(500).json({
+      error: error,
+    });
+  }
 };
 
 export const toggleLinkStatus = async (req: Request | any, res: Response) => {
@@ -133,14 +137,6 @@ export const toggleLinkStatus = async (req: Request | any, res: Response) => {
         message: "LinkId is required.",
       });
     }
-
-    // const { isActive } = req.body;
-
-    // if (!isActive) {
-    //   return res.status(400).json({
-    //     message: "Parameters are missing.",
-    //   });
-    // }
 
     const link = await Link.findOne({ _id: linkId, userId: user._id });
 

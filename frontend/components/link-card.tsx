@@ -1,12 +1,10 @@
 "use client";
 
-import React, { useState } from "react";
-import { BsPencil } from "react-icons/bs";
-import { GoGrabber, GoTrash } from "react-icons/go";
-import { FaToggleOn, FaToggleOff } from "react-icons/fa6";
-import { Button } from "./ui/button";
+import React from "react";
+import { GoGrabber } from "react-icons/go";
 import StatusButton from "./status-button";
 import DeleteButton from "./delete-button";
+import LinkInfo from "./link-info";
 
 interface LinkCardProps {
   id: string;
@@ -23,7 +21,6 @@ const LinkCard: React.FC<LinkCardProps> = ({
   isActive,
   id,
 }) => {
-  const [active, setActive] = useState(true);
   return (
     <>
       {isEditable ? (
@@ -31,15 +28,8 @@ const LinkCard: React.FC<LinkCardProps> = ({
           <div className="hover:cursor-grab h-full flex items-center lg:p-3 p-2">
             <GoGrabber size={25} className="" />
           </div>
-          <div className="p-6 w-full space-y-1">
-            <div className="flex items-center gap-x-3">
-              <h1>{title}</h1>
-              <BsPencil />
-            </div>
-            <div className="flex items-center gap-x-3">
-              <h4>{url}</h4>
-              <BsPencil />
-            </div>
+          <div className="w-full">
+            <LinkInfo title={title} url={url} isActive={isActive} id={id} />
           </div>
           <div className="flex flex-col justify-evenly items-center">
             <StatusButton linkId={id} status={isActive} />

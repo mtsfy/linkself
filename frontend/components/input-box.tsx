@@ -25,10 +25,27 @@ interface InputBoxProps {
   isOpen: boolean;
 }
 
+export const urlFormatter = (url: string) => {
+  let formattedUrl = url;
+
+  // Check if the URL starts with "https://", if not, prepend it.
+  if (!formattedUrl.startsWith("https://")) {
+    formattedUrl = `https://${formattedUrl}`;
+  }
+
+  // Extract the domain name
+  const urlObject = new URL(formattedUrl);
+  let domainName = urlObject.hostname;
+
+  // Optional: Remove "www." if present
+  if (domainName.startsWith("www.")) {
+    domainName = domainName.substring(4);
+  }
+
+  return { formattedUrl, domainName };
+};
+
 const InputBox: React.FC<InputBoxProps> = ({ onClick, isOpen }) => {
-  // if (!isOpen) {
-  //   return null;
-  // }
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
 
@@ -45,21 +62,8 @@ const InputBox: React.FC<InputBoxProps> = ({ onClick, isOpen }) => {
   const onSubmit = async (data: z.infer<typeof InputBoxSchema>) => {
     try {
       setIsLoading(true);
-      let formattedUrl = data.url;
 
-      // Check if the URL starts with "https://", if not, prepend it.
-      if (!formattedUrl.startsWith("https://")) {
-        formattedUrl = `https://${formattedUrl}`;
-      }
-
-      // Extract the domain name
-      const urlObject = new URL(formattedUrl);
-      let domainName = urlObject.hostname;
-
-      // Optional: Remove "www." if present
-      if (domainName.startsWith("www.")) {
-        domainName = domainName.substring(4);
-      }
+      const { formattedUrl, domainName } = urlFormatter(data.url);
 
       const response = await axios({
         method: "POST",
