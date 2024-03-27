@@ -155,8 +155,39 @@ export const toggleLinkStatus = async (req: Request | any, res: Response) => {
     await link.save();
 
     res.status(200).json({
-      message: "Link updated successfully.",
+      message: "Link status updated successfully.",
       link: link,
+    });
+  } catch (error) {
+    res.status(500).json({
+      error: error,
+    });
+  }
+};
+
+export const deleteLink = async (req: Request | any, res: Response) => {
+  console.log("/:linkId/delete", req.headers.host);
+
+  try {
+    const linkId = req.params.linkId;
+    const user = req.user;
+
+    if (!linkId) {
+      return res.status(400).json({
+        message: "LinkId is required.",
+      });
+    }
+
+    const link = await Link.deleteOne({ _id: linkId, userId: user._id });
+
+    if (link.deletedCount === 0) {
+      return res.status(404).json({
+        message: "Link not found.",
+      });
+    }
+
+    res.status(200).json({
+      message: "Link deleted successfully.",
     });
   } catch (error) {
     res.status(500).json({

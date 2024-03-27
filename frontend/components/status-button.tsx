@@ -14,7 +14,7 @@ const StatusButton: React.FC<StatusButtonProps> = ({ linkId, status }) => {
     currentStatus: status,
   });
   return (
-    <div>
+    <div className="px-4 cursor-pointer transition hover:opacity-80">
       <div onClick={toggleActive}>
         <div>
           {isActive ? (

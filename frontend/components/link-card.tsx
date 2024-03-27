@@ -6,6 +6,7 @@ import { GoGrabber, GoTrash } from "react-icons/go";
 import { FaToggleOn, FaToggleOff } from "react-icons/fa6";
 import { Button } from "./ui/button";
 import StatusButton from "./status-button";
+import DeleteButton from "./delete-button";
 
 interface LinkCardProps {
   id: string;
@@ -41,16 +42,8 @@ const LinkCard: React.FC<LinkCardProps> = ({
             </div>
           </div>
           <div className="flex flex-col justify-evenly items-center">
-            <div className="px-4 cursor-pointer transition">
-              <StatusButton linkId={id} status={isActive} />
-            </div>
-            <div className="px-4 cursor-pointer transition">
-              <div onClick={() => {}}>
-                <div>
-                  <GoTrash size={20} color="grey" />
-                </div>
-              </div>
-            </div>
+            <StatusButton linkId={id} status={isActive} />
+            <DeleteButton linkId={id} />
           </div>
         </div>
       ) : (
