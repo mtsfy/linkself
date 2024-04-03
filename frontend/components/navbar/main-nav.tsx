@@ -1,18 +1,20 @@
 "use client";
 
-import Link from "next/link";
-import { Button } from "../ui/button";
 import { IoSettingsOutline } from "react-icons/io5";
 import { LuGalleryVertical } from "react-icons/lu";
 import { LuShapes } from "react-icons/lu";
 import { BsBarChart } from "react-icons/bs";
 import MenuBox from "./menu-box";
+import { usePathname } from "next/navigation";
 
 interface MainNavProps {
   currentUser: User | null;
 }
 
 const MainNav: React.FC<MainNavProps> = ({ currentUser }) => {
+  const pathname = usePathname();
+console.log(pathname.split("/"));
+
   const defaultOptions = [
     {
       title: "Template",
@@ -57,13 +59,14 @@ const MainNav: React.FC<MainNavProps> = ({ currentUser }) => {
   const menu = currentUser ? mainOptions : defaultOptions;
 
   return (
-    <div className="lg:flex hidden w-full justify-evenly">
+    <div className="ml-2 md:flex gap-3 w-full hidden ">
       {menu.map((item: any, index) => (
         <MenuBox
           key={index}
           title={item.title}
           href={item.href}
           icon={item.icon}
+          isActive={item.href == pathname}
         />
       ))}
     </div>

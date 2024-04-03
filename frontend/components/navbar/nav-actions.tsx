@@ -34,7 +34,7 @@ const NavActions: React.FC<NavActionsProps> = ({ currentUser }) => {
           Log out
         </Button>
       </form>
-      <Avatar user={currentUser} />
+      <Avatar user={currentUser} bgStyle="bg-gray-400" />
     </>
   );
   const actions = currentUser ? mainActions : defaultActions;

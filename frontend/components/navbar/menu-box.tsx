@@ -8,14 +8,15 @@ interface MenuBoxProps {
   title: string;
   href: string;
   icon?: IconType;
+  isActive: boolean;
 }
 
-const MenuBox: React.FC<MenuBoxProps> = ({ title, href, icon: Icon }) => {
+const MenuBox: React.FC<MenuBoxProps> = ({ title, href, icon: Icon, isActive }) => {
   return (
-    <Button asChild variant={"ghost"} className="text-base text-neutral-600">
-      <Link href={href} className="flex gap-2">
-        {Icon && <Icon size={20} />}
-        <span>{title}</span>
+    <Button asChild variant={"ghost"} className="px-2 text-base">
+      <Link href={href} className={`flex gap-2 ${isActive ? "text-black" : "text-gray-600"}`}>
+        {Icon && <Icon size={20}  />}
+        <h1 className={`${isActive ? "font-semibold" : "font-medium"}`}>{title}</h1>
       </Link>
     </Button>
   );

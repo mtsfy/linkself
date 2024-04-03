@@ -42,9 +42,9 @@ const LinkCard: React.FC<LinkCardProps> = ({
             href={url}
             target="_blank"
             rel="noopener noreferrer"
-            className="hover:scale-105 duration-200 transition"
+            className="hover:scale-105 duration-75 transition"
           >
-            <div className="bg-white h-full flex rounded-sm shadow-md border-[1px]">
+            <div className="bg-white h-full flex rounded-lg shadow-md border-[1px]">
               <div className="p-4 space-y-1 w-full">
                 <div className="flex items-center">
                   <h1 className="w-full text-center font-medium text-sm">
