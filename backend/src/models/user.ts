@@ -23,6 +23,25 @@ const userSchema = new Schema(
       minlength: 8,
       select: false,
     },
+    title: {
+      type: String,
+      requrired: false,
+    },
+    bio: {
+      type: String,
+      required: false,
+      default: null,
+    },
+    image: {
+      type: String,
+      required: false,
+      default: null,
+    },
+    theme: {
+      type: String,
+      required: false,
+      default: "1",
+    },
   },
   { timestamps: true }
 );

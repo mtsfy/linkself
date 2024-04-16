@@ -4,7 +4,7 @@ import jwt from "jsonwebtoken";
 import User from "../models/user";
 import Link from "../models/link";
 
-const domain = process.env.ENV === 'production' ? '.linkself.at' : '.localhost';
+const domain = process.env.ENV === "production" ? ".linkself.at" : ".localhost";
 
 export const register = async (req: Request, res: Response) => {
   console.log("/auth/register: ", req.headers.host);
@@ -40,6 +40,7 @@ export const register = async (req: Request, res: Response) => {
 
     const newUser = await User.create({
       name: name,
+      title: name,
       username: username,
       email: email,
       password: hashedPassword,
