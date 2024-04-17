@@ -26,11 +26,12 @@ const userSchema = new Schema(
     title: {
       type: String,
       requrired: false,
+      default: "",
     },
     bio: {
       type: String,
       required: false,
-      default: null,
+      default: "",
     },
     image: {
       type: String,

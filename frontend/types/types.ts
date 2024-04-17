@@ -3,6 +3,9 @@ type userType = {
   email: string;
   name: string;
   username: string;
+  bio: string;
+  title: string;
+  image: string;
   updatedAt: string;
   createdAt: string;
   _v: number;

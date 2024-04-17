@@ -151,7 +151,7 @@ export const currentUser = async (req: Request, res: Response) => {
     const user = await User.findOne({ _id }).select("+email");
 
     if (!user) {
-      res.status(404).json({
+      return res.status(404).json({
         error: "User not found.",
       });
     }
@@ -191,6 +191,37 @@ export const getUserByUsername = async (req: Request, res: Response) => {
     console.log(error);
     res.status(500).json({
       error: "Error retrieving user.",
+    });
+  }
+};
+
+export const updateProfile = async (req: Request | any, res: Response) => {
+  try {
+    const { title, bio, image } = req.body;
+    const { _id } = req.user;
+
+    const user = await User.findOne({ _id });
+
+    if (!user) {
+      return res.status(404).json({
+        error: "User not found.",
+      });
+    }
+
+    user.title = title;
+    user.bio = bio;
+    user.image = image;
+
+    await user.save();
+
+    res.status(200).json({
+      message: "Profile updated successfully.",
+      user: user,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      error: "Error updating profile.",
     });
   }
 };

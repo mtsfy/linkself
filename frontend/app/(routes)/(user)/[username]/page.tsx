@@ -25,7 +25,7 @@ const UserPage: React.FC<UserPageProps> = async ({ params }) => {
         <div className="flex flex-col items-center lg:w-[650px] w-full mx-auto gap-4 bg-cre">
           <Avatar
             user={user}
-            bgStyle="w-24 h-24 aspect-square bg-gray-900"
+            bgStyle={user.user.image ? "w-40 h-40" : "w-32 h-32 bg-slate-900"}
             nameStyle="text-3xl text-white"
           />
           <div>

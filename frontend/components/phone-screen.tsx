@@ -13,7 +13,9 @@ const PhoneScreen: React.FC<PhoneScreenProps> = ({ currentUser }) => {
       <div className="flex flex-col items-center w-full gap-2">
         <Avatar
           user={currentUser}
-          bgStyle=" h-20 w-20 aspect-square bg-gray-400"
+          bgStyle={
+            currentUser.user.image ? "w-24 h-24" : "w-20 h-20 bg-slate-800"
+          }
           nameStyle="text-2xl"
         />
         <div>
