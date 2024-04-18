@@ -23,4 +23,5 @@ router.post("/login", login);
 router.post("/logout", logout);
 
 router.put("/edit-profile", requireAuth, updateProfile);
+
 export default router;
