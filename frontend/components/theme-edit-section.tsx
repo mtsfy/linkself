@@ -39,11 +39,11 @@ const ThemeEditSection: React.FC<ThemeEditSectionProps> = ({ user }) => {
         <div className="grid grid-cols-4 gap-4 w-full">
           {Object.entries(theme).map(([key, value]) => (
             <div
+              key={key}
               className="flex flex-col gap-2 hover:scale-105 transition duration-75 cursor-pointer"
               onClick={() => handleOnClick(key)}
             >
               <div
-                key={key}
                 className={`relative h-[200px] lg:col-span-1  ${value.displayBgColor} border-[0.5px] rounded-lg`}
               >
                 <div className="flex flex-col gap-2  p-[4px] justify-center w-full h-full">
