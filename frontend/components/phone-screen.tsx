@@ -1,6 +1,6 @@
 "use client";
 
-import { theme } from "@/app/(routes)/(user)/[username]/page";
+import { theme } from "@/lib/theme";
 import Avatar from "./avatar";
 import LinkList from "./link-list";
 import Logo from "./navbar/logo";

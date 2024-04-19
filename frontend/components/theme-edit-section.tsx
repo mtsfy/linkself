@@ -1,4 +1,6 @@
-import { theme } from "@/app/(routes)/(user)/[username]/page";
+"use client";
+
+import { theme } from "@/lib/theme";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";

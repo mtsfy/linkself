@@ -1,6 +1,61 @@
 import type { Config } from "tailwindcss";
 
 const config = {
+  safelist: [
+    // Background Colors
+    "bg-zinc-200",
+    "bg-slate-900",
+    "bg-white",
+    "bg-green-400",
+    "bg-green-900",
+    "bg-blue-600",
+    "bg-blue-950",
+    "bg-gray-100",
+    "bg-gray-700",
+    "bg-gray-800",
+    "bg-zinc-50",
+    "bg-zinc-800",
+    "bg-stone-600",
+    "bg-black",
+    "bg-blue-900",
+    "bg-sky-200",
+    "bg-green-200",
+    "bg-amber-900",
+    "bg-orange-200",
+    "bg-yellow-200",
+    "bg-gradient-to-t",
+    "from-gray-900",
+    "to-gray-800",
+    "from-fuchsia-900",
+    "via-5%",
+    "to-fuchsia-600",
+    "to-95%",
+    "from-rose-900",
+    "bg-rose-700",
+    "from-blue-900",
+    "bg-sky-500",
+    "from-green-900",
+    "bg-green-500",
+    "bg-fuchsia-900",
+    "bg-rose-950",
+    "bg-blue-800",
+
+    // Text Colors
+    "text-black",
+    "text-white",
+    "text-zinc-900",
+    "text-amber-900",
+    "text-gray-900",
+
+    // Border Colors and Styles
+    "border-[0.9px]",
+    "border-gray-400",
+    "border-gray-500",
+    "border-white",
+    "border-[0.5px]",
+
+    // Additional classes might be added here if needed
+  ],
   darkMode: ["class"],
   content: [
     "./pages/**/*.{ts,tsx}",

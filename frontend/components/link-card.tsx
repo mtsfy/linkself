@@ -5,7 +5,7 @@ import { GoGrabber } from "react-icons/go";
 import StatusButton from "./status-button";
 import DeleteButton from "./delete-button";
 import LinkInfo from "./link-info";
-import { theme } from "@/app/(routes)/(user)/[username]/page";
+import { theme } from "@/lib/theme";
 
 interface LinkCardProps {
   id: string;
