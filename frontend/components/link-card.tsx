@@ -5,7 +5,7 @@ import { GoGrabber } from "react-icons/go";
 import StatusButton from "./status-button";
 import DeleteButton from "./delete-button";
 import LinkInfo from "./link-info";
-import { userTheme } from "@/app/(routes)/(user)/[username]/page";
+import { theme } from "@/app/(routes)/(user)/[username]/page";
 
 interface LinkCardProps {
   id: string;
@@ -13,6 +13,7 @@ interface LinkCardProps {
   url: string;
   isActive: boolean;
   isEditable: boolean;
+  themeId: string;
 }
 
 const LinkCard: React.FC<LinkCardProps> = ({
@@ -21,7 +22,10 @@ const LinkCard: React.FC<LinkCardProps> = ({
   isEditable,
   isActive,
   id,
+  themeId,
 }) => {
+  // @ts-ignore
+  const userTheme = theme[themeId];
   return (
     <>
       {isEditable ? (

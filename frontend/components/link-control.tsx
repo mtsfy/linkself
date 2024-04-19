@@ -26,7 +26,7 @@ const LinkControl: React.FC<LinkControlProps> = ({ currentUser }) => {
             isOpen={isInputBoxOpen}
           />
         )}
-        <LinkList links={links} currentUser={currentUser} />
+        <LinkList user={currentUser} currentUser={currentUser} />
       </div>
     </div>
   );

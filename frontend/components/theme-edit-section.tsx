@@ -1,11 +1,34 @@
 import { theme } from "@/app/(routes)/(user)/[username]/page";
+import axios from "axios";
+import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
 
 interface ThemeEditSectionProps {
   user: User;
 }
 const ThemeEditSection: React.FC<ThemeEditSectionProps> = ({ user }) => {
-  const handleOnClick = (key: string) => {
+  const router = useRouter();
+
+  const handleOnClick = async (key: string) => {
     console.log(key);
+
+    const response = await axios({
+      method: "PATCH",
+      url: process.env.NEXT_PUBLIC_BACKEND_URL + "/auth/edit-theme",
+      data: {
+        theme: key,
+      },
+      withCredentials: true,
+    });
+
+    if (response.status === 200) {
+      toast.success("Theme updated successfully");
+      router.refresh();
+      return;
+    } else {
+      toast.error("Something went wrong.");
+      return;
+    }
   };
   return (
     <div className="p-4">

@@ -7,6 +7,7 @@ import {
   logout,
   register,
   updateProfile,
+  updateTheme,
 } from "../controllers/users";
 import { requireAuth } from "../middleware/auth";
 
@@ -23,5 +24,7 @@ router.post("/login", login);
 router.post("/logout", logout);
 
 router.put("/edit-profile", requireAuth, updateProfile);
+
+router.patch("/edit-theme", requireAuth, updateTheme);
 
 export default router;

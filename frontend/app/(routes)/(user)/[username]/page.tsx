@@ -222,11 +222,10 @@ export const theme = {
     logoColor: "white",
   },
 };
-export const userTheme = theme["1"];
+
 const UserPage: React.FC<UserPageProps> = async ({ params }) => {
   const { username } = params;
   const user = await getUserByUsername(username);
-
   if (!user) {
     return (
       <div className="h-screen flex flex-col items-center justify-center">
@@ -234,12 +233,14 @@ const UserPage: React.FC<UserPageProps> = async ({ params }) => {
       </div>
     );
   }
+  // @ts-ignore
+  const userTheme = theme[user?.user.theme];
   return (
     <>
       <div
         className={`min-h-screen h-full flex flex-col items-center justify-between p-4 pt-32 bg-center bg-cover ${userTheme.displayBgColor}`}
       >
-        <div className="flex flex-col items-center lg:w-[650px] w-full mx-auto gap-4 bg-cre">
+        <div className="flex flex-col items-center lg:w-[650px] w-full mx-auto gap-4">
           <Avatar
             user={user}
             bgStyle={
@@ -257,11 +258,15 @@ const UserPage: React.FC<UserPageProps> = async ({ params }) => {
             </h1>
           </div>
           <div className="w-full mt-6">
-            <LinkList links={user.links} currentUser={null} />
+            <LinkList user={user} currentUser={null} />
           </div>
         </div>
         <div className="lg:ml-12 lg:mr-8 mr-4 mb-4 mt-12">
-          <Logo userPage />
+          <Logo
+            userPage
+            displayTextColor={userTheme.displayTextColor}
+            logoColor={userTheme.logoColor}
+          />
         </div>
       </div>
     </>

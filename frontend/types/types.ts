@@ -6,6 +6,7 @@ type userType = {
   bio: string;
   title: string;
   image: string;
+  theme: string;
   updatedAt: string;
   createdAt: string;
   _v: number;
