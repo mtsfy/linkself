@@ -95,7 +95,7 @@ const ProfileEditSection: React.FC<ProfileEditSectionProps> = ({ user }) => {
       <div className="p-4">
         <h1 className="font-semibold text-3xl">Profile</h1>
       </div>
-      <div className="border-[1px] lg:w-[500px] w-full pl-6 pr-6 rounded-xl pt-10 min-h-[60vh] pb-8 flex flex-col gap-4 bg-white">
+      <div className="border-[1px] lg:w-[600px] w-full pl-6 pr-6 rounded-xl pt-10 min-h-[60vh] pb-8 flex flex-col gap-4 bg-white">
         {/* Avatar Input */}
         <div className="flex items-center justify-center gap-4">
           {/* Avatar */}

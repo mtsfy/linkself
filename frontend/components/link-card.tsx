@@ -5,6 +5,7 @@ import { GoGrabber } from "react-icons/go";
 import StatusButton from "./status-button";
 import DeleteButton from "./delete-button";
 import LinkInfo from "./link-info";
+import { userTheme } from "@/app/(routes)/(user)/[username]/page";
 
 interface LinkCardProps {
   id: string;
@@ -24,7 +25,7 @@ const LinkCard: React.FC<LinkCardProps> = ({
   return (
     <>
       {isEditable ? (
-        <div className="bg-white rounded-xl flex">
+        <div className={`bg-white rounded-xl flex`}>
           <div className="hover:cursor-grab h-full flex items-center lg:p-3 p-2">
             <GoGrabber size={25} className="" />
           </div>
@@ -44,10 +45,14 @@ const LinkCard: React.FC<LinkCardProps> = ({
             rel="noopener noreferrer"
             className="hover:scale-105 duration-75 transition"
           >
-            <div className="bg-white h-full flex rounded-lg shadow-md border-[1px]">
+            <div
+              className={`${userTheme.buttonBgColor} h-full flex rounded-3xl `}
+            >
               <div className="p-4 space-y-1 w-full">
                 <div className="flex items-center">
-                  <h1 className="w-full text-center font-medium text-sm">
+                  <h1
+                    className={`w-full text-center font-medium text-base ${userTheme.buttonTextColor}`}
+                  >
                     {title}
                   </h1>
                 </div>
