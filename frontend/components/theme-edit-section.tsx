@@ -38,7 +38,7 @@ const ThemeEditSection: React.FC<ThemeEditSectionProps> = ({ user }) => {
         <h1 className="font-semibold text-3xl">Themes</h1>
       </div>
       <div className="border-[1px] lg:w-[600px] w-full pl-8 pr-8 rounded-xl pt-10 min-h-[60vh] pb-8 flex flex-col gap-4 bg-white">
-        <div className="grid grid-cols-4 gap-4 w-full">
+        <div className="grid lg:grid-cols-4 sm:grid-cols-3 grid-cols-2 md:grid-cols-4 gap-4 w-full">
           {Object.entries(theme).map(([key, value]) => (
             <div
               key={key}

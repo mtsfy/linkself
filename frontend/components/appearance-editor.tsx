@@ -11,7 +11,7 @@ interface AppearanceEditorProps {
 const AppearanceEditor: React.FC<AppearanceEditorProps> = ({ user }) => {
   return (
     <div className="flex justify-between gap-6">
-      <div className="flex lg:items-center flex-col gap-8 lg:w-3/4 w-full pb-32 pr-8 pl-8">
+      <div className="flex lg:items-center flex-col gap-8 lg:w-3/4 w-full lg:pb-32 lg:pr-8 lg:pl-8">
         <ProfileEditSection user={user} />
         <ThemeEditSection user={user} />
       </div>

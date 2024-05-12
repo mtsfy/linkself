@@ -17,7 +17,7 @@ const LoginPage = async () => {
         <LoginForm />
       </div>
       <div className="lg:w-2/6 hidden lg:block">
-        <SideFill className={"bg-violet-200"} />
+        <SideFill className={"bg-violet-300"} />
       </div>
     </div>
   );

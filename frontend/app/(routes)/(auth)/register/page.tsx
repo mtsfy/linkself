@@ -17,7 +17,7 @@ const RegisterPage = async () => {
         <RegisterForm />
       </div>
       <div className="lg:w-2/6 hidden lg:block">
-        <SideFill className={"bg-yellow-500"} />
+        <SideFill className={"bg-yellow-500 "} />
       </div>
     </div>
   );
